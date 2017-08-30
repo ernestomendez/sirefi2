@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="082917-altering-roles-id" author="Ernesto">
+
+        <dropAllForeignKeyConstraints baseTableName="user_roles" />
+
+        <dropPrimaryKey tableName="user_roles" constraintName="PRIMARY" />
+
+        <dropPrimaryKey tableName="roles" />
+
+        <addColumn tableName="roles">
+            <column name="id" type="int">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </addColumn>
+
+        <addNotNullConstraint tableName="roles"
+                              columnName="name"
+                              columnDataType="varchar(25)" />
+
+        <dropColumn tableName="user_roles" columnName="role_name" />
+
+        <addColumn tableName="user_roles">
+            <column name="rol_id" type="int" />
+        </addColumn>
+
+        <addPrimaryKey tableName="user_roles" columnNames="user_id, rol_id" />
+
+        <addForeignKeyConstraint baseTableName="user_roles" baseColumnNames="rol_id" constraintName="fk_role_id"
+                                 referencedTableName="roles"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="user_roles" baseColumnNames="user_id" constraintName="fk_user_role"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+</databaseChangeLog>

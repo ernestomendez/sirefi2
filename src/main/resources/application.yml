@@ -1,0 +1,17 @@
+spring:
+  jpa.hibernate.ddl-auto: none  #inhibe la creacion de la base de datos a partir de los entities. En este caso estamos usando liquibase.
+
+  datasource:
+    url: jdbc:mysql://localhost/sirefi2
+    username: root
+    password: admin
+    driver-class-name: com.mysql.jdbc.Driver
+
+#Aparentemente es necesaria toda esta configuración para que se ejecuten correctamente los scripts de liquibase,
+#es decir si no le dices en que base de datos se va a conectar puede fallar.
+liquibase:
+  change-log: classpath:db/liquibase-changelog.xml
+  enabled: true
+  url: jdbc:mysql://localhost/sirefi2
+  user: root
+  password: admin
