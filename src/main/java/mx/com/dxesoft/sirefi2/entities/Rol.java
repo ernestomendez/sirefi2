@@ -20,8 +20,8 @@ public class Rol implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
+    @Column(name = "role_name")
     @NotNull
-    private String name;
+    private String role_name;
 
 }

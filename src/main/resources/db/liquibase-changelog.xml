@@ -7,4 +7,7 @@
 
     <include file="changelog/082817-create-user-and-roles.xml" relativeToChangelogFile="true"/>
     <include file="changelog/082917-altering-roles-id.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/090117-altering-user-columns.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/090117-altering-role-columns.xml" relativeToChangelogFile="true"/>
+    <include file="090117212733-altering-user-role-foreing-key" relativeToChangelogFile="true"/>
 </databaseChangeLog>

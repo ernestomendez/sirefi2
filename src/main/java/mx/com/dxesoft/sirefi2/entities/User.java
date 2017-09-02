@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -39,6 +41,8 @@ public class User implements Serializable {
      *
      * Algunos JPA Providers como hibernate convierten el @NotNull en nullable = true, pero no todos. Para este caso en especifico, al no estar construyendo
      * la base de datos con hibernate, no es necesario poner los dos.
+     *
+     * TODO ESTE EMAIL ESTA FUNGIENDO COMO USER NAME, CAMBIAR EL NOMBRE A USERNAME
      */
     private String email;
 
@@ -51,23 +55,27 @@ public class User implements Serializable {
     @NotNull
     private String name;
 
-    @Column
+    @Column(name = "apellido_paterno")
     private String apellidoPaterno;
 
-    @Column
+    @Column(name = "apellido_materno")
     private String apellidoMaterno;
 
     @Column
     private boolean enabled;
 
-    @Column
+    @Column(name = "disabled_date")
     private LocalDate disabledDate;
 
+    /*
+    Al cambiar el foreing key en la tabla, olvidé cambiar el JoinColumn.
+     */
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(
             name = "user_roles",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_name", referencedColumnName = "name")}
+            inverseJoinColumns = {@JoinColumn(name = "rol_id", referencedColumnName = "id")}
     )
     private Set<Rol> roles = new HashSet<>();
 
